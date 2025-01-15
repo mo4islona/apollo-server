@@ -36,6 +36,11 @@ import type { DocumentStore } from './types';
  * - (optional) allowBatchedHttpRequests: a boolean to toggle whether a single request can contain an array of queries. True by default
  *
  */
+
+export interface ValidateOptions {
+  maxErrors?: number;
+}
+
 export interface GraphQLServerOptions<
   TContext = Record<string, any>,
   TRootValue = any,
@@ -64,6 +69,7 @@ export interface GraphQLServerOptions<
   documentStore?: DocumentStore | null;
   dangerouslyDisableValidation?: boolean;
   parseOptions?: ParseOptions;
+  validateOptions?: ValidateOptions;
   nodeEnv?: string;
   allowBatchedHttpRequests?: boolean;
 }

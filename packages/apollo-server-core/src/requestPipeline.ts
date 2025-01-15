@@ -14,7 +14,7 @@ import {
   ParseOptions,
 } from 'graphql';
 import type { DataSource } from 'apollo-datasource';
-import type { PersistedQueryOptions } from './graphqlOptions';
+import type { PersistedQueryOptions, ValidateOptions } from './graphqlOptions';
 import {
   symbolExecutionDispatcherWillResolveField,
   enablePluginsForSchemaResolvers,
@@ -95,6 +95,7 @@ export interface GraphQLRequestPipelineConfig<TContext> {
   documentStore?: DocumentStore | null;
 
   parseOptions?: ParseOptions;
+  validateOptions?: ValidateOptions;
 }
 
 export type DataSources<TContext> = {
@@ -474,7 +475,7 @@ export async function processGraphQLRequest<TContext extends BaseContext>(
       rules = rules.concat(config.validationRules);
     }
 
-    return graphqlValidate(config.schema, document, rules);
+    return graphqlValidate(config.schema, document, rules, undefined, config.validateOptions);
   }
 
   async function execute(

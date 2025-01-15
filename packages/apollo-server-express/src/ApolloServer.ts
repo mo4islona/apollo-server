@@ -8,10 +8,10 @@ import {
   runHttpQuery,
   convertNodeHttpToRequest,
   isHttpQueryError,
-} from 'apollo-server-core';
+} from '@subsquid/apollo-server-core';
 import accepts from 'accepts';
 
-export { GraphQLOptions } from 'apollo-server-core';
+export { GraphQLOptions } from '@subsquid/apollo-server-core';
 
 export interface GetMiddlewareOptions {
   path?: string;

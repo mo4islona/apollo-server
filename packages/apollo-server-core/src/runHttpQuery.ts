@@ -281,6 +281,7 @@ export async function runHttpQuery(
 
     formatError: options.formatError,
     formatResponse: options.formatResponse,
+    validateOptions: options.validateOptions,
 
     debug: options.debug,
 

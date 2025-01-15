@@ -10,7 +10,7 @@ import type {
 
 import type {
   GraphQLServerOptions as GraphQLOptions,
-  PersistedQueryOptions,
+  PersistedQueryOptions, ValidateOptions,
 } from './graphqlOptions';
 import type { ApolloServerPlugin } from 'apollo-server-plugin-base';
 
@@ -95,7 +95,7 @@ export interface Config<ContextFunctionParams = any> extends BaseConfig {
   typeDefs?: IExecutableSchemaDefinition['typeDefs'];
   resolvers?: IExecutableSchemaDefinition['resolvers'];
   parseOptions?: IExecutableSchemaDefinition['parseOptions'];
-
+  validateOptions?: ValidateOptions;
   schema?: GraphQLSchema;
   context?: Context | ContextFunction<ContextFunctionParams>;
   introspection?: boolean;

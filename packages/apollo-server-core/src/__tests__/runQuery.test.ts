@@ -30,6 +30,7 @@ import type {
 } from 'apollo-server-plugin-base';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { newCachePolicy } from '../cachePolicy';
+import { ApolloServerBase } from '../ApolloServer';
 
 // This is a temporary kludge to ensure we preserve runQuery behavior with the
 // GraphQLRequestProcessor refactoring.
@@ -1247,4 +1248,33 @@ describe('runQuery', () => {
       expect(ids.length).toBeGreaterThanOrEqual(2);
     });
   });
+
+  describe('validationOptions', () => {
+    it('aborts the validation if max errors more than expected', async () => {
+
+      const server = new ApolloServerBase({
+        schema,
+        validateOptions: { maxErrors: 1 }
+      });
+      await server.start();
+
+      const vars = new Array(1000).fill('$a:a').join(',');
+      const query = `query aaa (${vars}) { a }`;
+
+      const res = await server.executeOperation({
+        query,
+        variables: { a: 1 },
+      });
+
+      expect(res.errors).toHaveLength(2);
+      expect(res.errors?.[0]).toMatchObject({
+        message: `Unknown type "a".`,
+      });
+      expect(res.errors?.[1]).toMatchObject({
+        message: `Too many validation errors, error limit reached. Validation aborted.`,
+      });
+
+      await server.stop();
+    });
+  })
 });
