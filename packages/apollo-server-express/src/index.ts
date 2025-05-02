@@ -10,7 +10,7 @@ export {
   AuthenticationError,
   ForbiddenError,
   UserInputError,
-} from 'apollo-server-core';
+} from '@subsquid/apollo-server-core';
 
 // ApolloServer integration.
 export {
